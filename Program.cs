@@ -3,7 +3,10 @@ using System.Text;
 
 namespace GDLibraryProxy {
     class Program {
+        // Domain for Geometry Dash Music and SFX Libraries
         public static string url = "geometrydashfiles.b-cdn.net";
+
+        // All endpoints
         public static string[] pages = {
             "/music/musiclibrary_version.txt",
             "/music/musiclibrary.dat",
@@ -14,8 +17,9 @@ namespace GDLibraryProxy {
         };
         static async Task Main() {
             HttpListener server = new HttpListener();
-            server.Prefixes.Add("http://127.0.0.1:8080/");
-            server.Prefixes.Add("http://localhost:8080/");
+            
+            server.Prefixes.Add("http://127.0.0.1:8080/"); // Here, "8080" is the port, you can change it if you need
+            server.Prefixes.Add("http://localhost:8080/"); // Same
 
             server.Start();
 
