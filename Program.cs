@@ -19,13 +19,12 @@ namespace GDLibraryProxy {
             HttpListener server = new HttpListener();
             
             server.Prefixes.Add("http://127.0.0.1:8080/"); // Here, "8080" is the port, you can change it if you need
-            server.Prefixes.Add("http://localhost:8080/"); // Same
 
             server.Start();
+            Console.WriteLine("Server Started");
 
             while(true) {
                 HttpListenerContext context = server.GetContext();
-
                 HttpListenerRequest request = context.Request;
                 HttpListenerResponse response = context.Response;
 
@@ -39,12 +38,13 @@ namespace GDLibraryProxy {
 
                 context.Response.Close();
 
-                Console.WriteLine($"[{request.HttpMethod}] {response.StatusCode} {request.Url.AbsolutePath}");
+                Console.WriteLine($"[{response.StatusCode}] {request.HttpMethod} \"{request.Url.AbsolutePath}\"");
             }
         }
         static async Task<string> PageBehavior(HttpListenerContext context, string url, string[] pages) {
             string response = "Not Found";
             context.Response.StatusCode = 404;
+
             HttpClient client = new HttpClient();
     
             foreach (string page in pages) {
@@ -59,7 +59,6 @@ namespace GDLibraryProxy {
                     return response;
                 }
             }
-            context.Response.StatusCode = 404;
             return response;
         }
     }
