@@ -1,7 +1,7 @@
 namespace GDLibraryProxy {
     // https://rmauro.dev/read-env-file-in-csharp/
     class EnvReader {
-        public static async Task Load(string filePath) {
+        public static Task Load(string filePath) {
             if (File.Exists(filePath)) {
                 foreach (string line in File.ReadAllLines(filePath)) {
                     if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
@@ -16,6 +16,8 @@ namespace GDLibraryProxy {
                     Environment.SetEnvironmentVariable(key, value);
                 }
             }
+
+            return Task.CompletedTask;
         }
     }
 }
